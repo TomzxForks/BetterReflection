@@ -6,6 +6,7 @@ use BetterReflection\Reflection\ReflectionClass;
 use BetterReflection\Util\Autoload\ClassLoader;
 use BetterReflection\Util\Autoload\ClassLoaderMethod\EvalLoader;
 use BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface;
+use BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
 use BetterReflectionTest\Fixture\TestClassForAutoloader;
 
 /**
@@ -31,7 +32,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
         $reflection = ReflectionClass::createFromName(TestClassForAutoloader::class);
         self::assertFalse(class_exists(TestClassForAutoloader::class, false));
 
-        $loader = new ClassLoader(new EvalLoader());
+        $loader = new ClassLoader(new EvalLoader(new PhpParserPrinter()));
         $loader->addClass($reflection);
 
         new TestClassForAutoloader();

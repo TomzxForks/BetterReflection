@@ -6,8 +6,9 @@ use BetterReflection\Reflector\ClassReflector;
 use BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use BetterReflection\Util\Autoload\ClassLoader;
 use BetterReflection\Util\Autoload\ClassLoaderMethod\EvalLoader;
+use BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
 
-$loader = new ClassLoader(new EvalLoader());
+$loader = new ClassLoader(new EvalLoader(new PhpParserPrinter()));
 
 // Create the reflection first (without loading)
 $classInfo = (new ClassReflector(new SingleFileSourceLocator(__DIR__ . '/MyClass.php')))->reflect('MyClass');
